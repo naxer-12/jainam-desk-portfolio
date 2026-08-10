@@ -6,9 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initRetroClock();
   initLampToggle();
   initThemeToggle();
-  initModeDock();
   initModalInteractions();
-  initDiscoveryHighlight();
 });
 
 /* --- Live Retro Digital Clock --- */
@@ -84,50 +82,6 @@ function initThemeToggle() {
       localStorage.setItem('jainam-desk-theme', isDark ? 'dark' : 'light');
     });
   }
-}
-
-/* --- Mode Switcher Dock --- */
-function initModeDock() {
-  const modeButtons = document.querySelectorAll('.mode-btn');
-
-  modeButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      modeButtons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const mode = btn.getAttribute('data-mode');
-      const collage = document.querySelector('.desk-collage');
-
-      if (mode === 'focus') {
-        collage.style.gridTemplateColumns = '1fr';
-        document.querySelector('.desk-objects-canvas').style.display = 'none';
-      } else if (mode === 'scatter') {
-        collage.style.gridTemplateColumns = '1fr 1fr';
-        document.querySelector('.desk-objects-canvas').style.display = 'flex';
-        document.querySelector('.desk-crt-monitor').style.transform = 'rotate(-2deg)';
-        document.querySelector('.paperclip-card').style.transform = 'rotate(3deg)';
-      } else {
-        // Tidy Desk (Default)
-        collage.style.gridTemplateColumns = '1fr 1fr';
-        document.querySelector('.desk-objects-canvas').style.display = 'flex';
-        document.querySelector('.desk-crt-monitor').style.transform = 'none';
-        document.querySelector('.paperclip-card').style.transform = 'none';
-      }
-    });
-  });
-}
-
-/* --- Interactive Discovery Highlight Helper --- */
-function initDiscoveryHighlight() {
-  const discoveryBtn = document.getElementById('discoveryBtn');
-  if (!discoveryBtn) return;
-
-  discoveryBtn.addEventListener('click', () => {
-    const isHighlighted = document.body.classList.toggle('discovery-highlight');
-    discoveryBtn.textContent = isHighlighted ? '✨ Interactive Highlights Active' : '🔍 Hint: Highlight Interactive Desk';
-    discoveryBtn.style.background = isHighlighted ? 'var(--accent-crimson)' : 'var(--accent-amber)';
-    discoveryBtn.style.color = isHighlighted ? '#ffffff' : '#0f172a';
-  });
 }
 
 /* --- Interactive Object Modal Dialogs --- */
