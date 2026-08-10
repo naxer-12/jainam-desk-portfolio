@@ -91,16 +91,9 @@
           <!-- Light Cone Beam Graphic -->
           <div class="lamp-light-beam"></div>
 
-          <!-- Interactive Desk Lamp Graphic Bar -->
-          <div class="desk-lamp-graphic" id="deskLampObject" title="Click to toggle desk lamp lighting">
-            <span style="font-size:1.25rem;">💡</span>
-            <span style="font-family:var(--font-mono); font-size:0.85rem; font-weight:700; color:var(--ink);" id="lampGraphicLabel">
-              Desk Studio Lamp [OFF]
-            </span>
-          </div>
-
           <!-- Retro CRT Terminal Monitor Object -->
           <div class="desk-crt-monitor">
+            <span class="tab-bubble">Apps I Built ↗</span>
             <div class="crt-scanlines"></div>
             <div class="crt-head">
               <span>SYSTEM: ONLINE</span>
@@ -118,6 +111,7 @@
 
           <!-- Paperclip Photo/Bio Card -->
           <div class="paperclip-card">
+            <span class="tab-bubble">About Me 📋</span>
             <!-- Paperclip SVG Illustration -->
             <svg class="paperclip-svg" viewBox="0 0 32 48" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 40V12C12 7.58172 15.5817 4 20 4C24.4183 4 28 7.58172 28 12V34C28 40.0751 23.0751 45 17 45C10.9249 45 6 40.0751 6 34V14" stroke="#e0483b" stroke-width="4" stroke-linecap="round"/>
@@ -135,12 +129,13 @@
 
       </div>
 
-      <!-- Mode Switcher Dock -->
+      <!-- Mode Switcher & Discovery Dock -->
       <div class="mode-dock-bar">
         <span style="font-family:var(--font-mono); font-size:0.75rem; color:var(--text-muted); font-weight:600;">DESK MODE:</span>
         <button class="mode-btn active" data-mode="tidy">Tidy Desk</button>
         <button class="mode-btn" data-mode="scatter">Studio Scatter</button>
         <button class="mode-btn" data-mode="focus">Focus Mode</button>
+        <button class="discovery-toggle-btn" id="discoveryBtn">🔍 Hint: Highlight Interactive Desk</button>
       </div>
 
     </div>

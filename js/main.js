@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initThemeToggle();
   initModeDock();
   initModalInteractions();
+  initDiscoveryHighlight();
 });
 
 /* --- Live Retro Digital Clock --- */
@@ -54,8 +55,6 @@ function initRetroClock() {
 /* --- Desk Lamp ON / OFF Toggle --- */
 function initLampToggle() {
   const headerLampSwitch = document.getElementById('lampHeaderSwitch');
-  const deskLampObject = document.getElementById('deskLampObject');
-  const lampGraphicLabel = document.getElementById('lampGraphicLabel');
 
   function toggleLamp() {
     const isLampOn = document.body.classList.toggle('lamp-on');
@@ -63,18 +62,10 @@ function initLampToggle() {
     if (headerLampSwitch) {
       headerLampSwitch.innerHTML = isLampOn ? '💡 Lamp: ON' : '💡 Lamp: OFF';
     }
-    
-    if (lampGraphicLabel) {
-      lampGraphicLabel.textContent = isLampOn ? 'Desk Studio Lamp [ON]' : 'Desk Studio Lamp [OFF]';
-    }
   }
 
   if (headerLampSwitch) {
     headerLampSwitch.addEventListener('click', toggleLamp);
-  }
-
-  if (deskLampObject) {
-    deskLampObject.addEventListener('click', toggleLamp);
   }
 }
 
@@ -123,6 +114,19 @@ function initModeDock() {
         document.querySelector('.paperclip-card').style.transform = 'none';
       }
     });
+  });
+}
+
+/* --- Interactive Discovery Highlight Helper --- */
+function initDiscoveryHighlight() {
+  const discoveryBtn = document.getElementById('discoveryBtn');
+  if (!discoveryBtn) return;
+
+  discoveryBtn.addEventListener('click', () => {
+    const isHighlighted = document.body.classList.toggle('discovery-highlight');
+    discoveryBtn.textContent = isHighlighted ? '✨ Interactive Highlights Active' : '🔍 Hint: Highlight Interactive Desk';
+    discoveryBtn.style.background = isHighlighted ? 'var(--accent-crimson)' : 'var(--accent-amber)';
+    discoveryBtn.style.color = isHighlighted ? '#ffffff' : '#0f172a';
   });
 }
 
