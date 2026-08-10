@@ -58,7 +58,7 @@ function initLampToggle() {
     const isLampOn = document.body.classList.toggle('lamp-on');
     
     if (headerLampSwitch) {
-      headerLampSwitch.innerHTML = isLampOn ? '💡 Lamp: ON' : '💡 Lamp: OFF';
+      headerLampSwitch.innerHTML = isLampOn ? '💡 Warm Light: ON' : '💡 Warm Light';
     }
   }
 
@@ -125,7 +125,6 @@ function initModalInteractions() {
         <div style="margin-top:1.25rem; display:flex; gap:1rem; flex-wrap:wrap;">
           <span class="skill-pill">📍 Toronto, ON / Ahmedabad, IN</span>
           <span class="skill-pill">📧 jainamshah395@gmail.com</span>
-          <span class="skill-pill">📱 +91 93132 60275</span>
         </div>
       `;
       openModal();
