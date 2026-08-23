@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI PM Learning Path | 7-Week Curriculum for Product Managers</title>
+  
+  <!-- Strict Anti-Indexing Metadata (Prevents Search Engine Discovery) -->
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+  <meta name="googlebot" content="noindex, nofollow" />
+
+  <!-- Inline SVG Favicon -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234f46e5'/%3E%3Ctext x='32' y='43' font-family='Space Grotesk,sans-serif' font-size='28' font-weight='700' fill='%23fff' text-anchor='middle'%3EPM%3C/text%3E%3C/svg%3E" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Shared Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    /* Curriculum Page Specific Overlay Styles */
+    .lock-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: radial-gradient(circle at 50% 30%, #1e293b 0%, #0f172a 100%);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+
+    .lock-overlay.unlocked {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .lock-card {
+      background: #ffffff;
+      border: 3.5px solid var(--border-desk);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      max-width: 440px;
+      width: 90%;
+      box-shadow: 8px 8px 0px var(--border-desk);
+      text-align: center;
+    }
+
+    .lock-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .pass-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      border: 2px solid var(--border-desk);
+      border-radius: 8px;
+      margin: 1.25rem 0 1rem;
+      text-align: center;
+      letter-spacing: 0.2em;
+    }
+
+    .pass-input:focus {
+      outline: none;
+      border-color: var(--accent-indigo);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+    }
+
+    .pass-err {
+      color: var(--accent-crimson);
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      margin-top: 0.5rem;
+      display: none;
+    }
+
+    /* Curriculum Accordion / Cards */
+    .week-card {
+      background: var(--surface-paper);
+      border: 2.5px solid var(--border-desk);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 5px 5px 0px var(--border-desk);
+      transition: var(--transition);
+    }
+
+    .week-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 7px 7px 0px var(--border-desk);
+    }
+
+    .week-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.25rem 0.75rem;
+      background: var(--accent-indigo);
+      color: #ffffff;
+      border-radius: 99px;
+      margin-bottom: 0.75rem;
+    }
+
+    .week-title {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      color: var(--ink);
+      margin-bottom: 1rem;
+    }
+
+    .topic-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 1rem;
+    }
+
+    .topic-item {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.6;
+    }
+
+    .topic-item::before {
+      content: '▹';
+      position: absolute;
+      left: 0;
+      color: var(--accent-crimson);
+      font-weight: bold;
+    }
+
+    .resource-box {
+      background: var(--bg-desk);
+      border: 1.5px dashed var(--border-desk);
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1.25rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Passcode Access Lock -->
+  <div class="lock-overlay" id="lockOverlay">
+    <div class="lock-card">
+      <div class="lock-icon">🔒</div>
+      <h2 style="font-family:var(--font-heading); font-size:1.5rem; color:var(--ink);">Private Learning Path</h2>
+      <p style="font-size:0.9rem; color:var(--text-muted); margin-top:0.5rem;">
+        Enter passcode to unlock the 7-Week AI Product Management Curriculum.
+      </p>
+      <input type="password" class="pass-input" id="passInput" placeholder="••••" maxlength="10" autofocus />
+      <button class="desk-btn btn-solid" style="width:100%; justify-content:center;" id="unlockBtn">Unlock Curriculum &rarr;</button>
+      <p class="pass-err" id="passErr">Incorrect passcode. Please try again.</p>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand-group">
+        <a href="index.html" class="brand-logo">
+          JAINAM SHAH <span class="brand-badge">Private Hub</span>
+        </a>
+      </div>
+
+      <div class="header-actions">
+        <a href="index.html" class="desk-btn btn-paper" style="padding:0.4rem 0.85rem; font-size:0.85rem;">&larr; Back to Portfolio</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Content Section -->
+  <main class="container" style="padding: 7rem 1.5rem 5rem;">
+    
+    <div style="max-width:800px; margin:0 auto;">
+      <span class="tab-bubble" style="position:static; margin-bottom:1rem; display:inline-block;">Private Curriculum 🎓</span>
+      <h1 style="font-family:var(--font-heading); font-size:2.5rem; margin-bottom:0.75rem; color:var(--ink);">AI PM Learning Path: 7-Week Curriculum</h1>
+      <p style="font-size:1.1rem; color:var(--text-muted); margin-bottom:3rem; line-height:1.7;">
+        A comprehensive 7-week curriculum designed for Product Managers to master AI Agents, LLM Architecture, RAG, System Prompts, and Agentic Product Development.
+      </p>
+
+      <!-- Week 1 -->
+      <article class="week-card">
+        <span class="week-badge">WEEK 01</span>
+        <h2 class="week-title">AI Fundamentals &amp; LLM Architecture for PMs</h2>
+        <p style="color:var(--text-muted);">Understand how Large Language Models work under the hood, tokenization, context windows, and model latency vs. cost tradeoffs.</p>
+
+        <ul class="topic-list">
+          <li class="topic-item"><strong>Core Concepts:</strong> Neural Networks, Transformers, Attention Mechanism, Tokens vs. Words.</li>
+          <li class="topic-item"><strong>PM Tradeoffs:</strong> Cost per 1M tokens, Latency (TTFT - Time To First Token), and Context Window limits.</li>
+          <li class="topic-item"><strong>Hands-On:</strong> Tokenizer calculation exercises using OpenAI &amp; Anthropic API calculators.</li>
+        </ul>
+
+        <div class="resource-box">
+          <strong>💡 Key Action Item:</strong> Map out an AI product feature latency budget (TTFT < 800ms) and cost per user query.
+        </div>
+      </article>
+
+      <!-- Week 2 -->
+      <article class="week-card">
+        <span class="week-badge">WEEK 02</span>
+        <h2 class="week-title">Prompt Engineering, System Prompts &amp; Context Management</h2>
+        <p style="color:var(--text-muted);">Master zero-shot, few-shot prompting, system instructions, structured output formatting (JSON/Function calling), and prompt injections.</p>
+
+        <ul class="topic-list">
+          <li class="topic-item"><strong>Techniques:</strong> Chain-of-Thought (CoT), Few-Shot examples, Role Prompting, and Negative Constraints.</li>
+          <li class="topic-item"><strong>Structured Outputs:</strong> Forcing JSON schemas, tool function calling definitions.</li>
+          <li class="topic-item"><strong>Security:</strong> Defending against prompt injection, jailbreaks, and data leakage.</li>
+        </ul>
+
+        <div class="resource-box">
+          <strong>💡 Key Action Item:</strong> Draft a robust System Prompt with fallback rules for edge cases and JSON schema constraints.
+        </div>
+      </article>
+
+      <!-- Week 3 -->
+      <article class="week-card">
+        <span class="week-badge">WEEK 03</span>
+        <h2 class="week-title">AI Agents &amp; Agentic Workflows (ReAct, Tools &amp; Planning)</h2>
+        <p style="color:var(--text-muted);">Dive into autonomous agents, the ReAct (Reason + Act) loop, tool calling APIs, multi-agent collaboration, and memory systems.</p>
+
+        <ul class="topic-list">
+          <li class="topic-item"><strong>Agent Architecture:</strong> Perception, Reasoning, Planning, Tool Execution, and Memory (Short-term vs. Long-term).</li>
+          <li class="topic-item"><strong>Patterns:</strong> Router pattern, Evaluator-Optimizer loop, Parallel worker agents.</li>
+          <li class="topic-item"><strong>PM Metrics:</strong> Completion rate, loop count limits, retry budgets, and cost governance.</li>
+        </ul>
+
+        <div class="resource-box">
+          <strong>💡 Key Action Item:</strong> Design a flowchart for a customer support agent with tool calling access (Order API, Refund API).
+        </div>
+      </article>
+
+      <!-- Week 4 -->
+      <article class="week-card">
+        <span class="week-badge">WEEK 04</span>
+        <h2 class="week-title">RAG (Retrieval-Augmented Generation) &amp; Vector Databases</h2>
+        <p style="color:var(--text-muted);">Learn how to ground AI models with internal company documentation, embeddings, vector search, and hybrid retrieval.</p>
+
+        <ul class="topic-list">
+          <li class="topic-item"><strong>RAG Pipeline:</strong> Document Ingestion, Chunking Strategies, Embedding Generation, Vector Search.</li>
+          <li class="topic-item"><strong>Vector DBs:</strong> Pinecone, Milvus, Qdrant, PGVector &mdash; Indexing &amp; Cosine Similarity.</li>
+          <li class="topic-item"><strong>Advanced RAG:</strong> Hybrid search (BM25 + Semantic), Re-ranking (Cohere Rerank), Query Rewriting.</li>
+        </ul>
+
+        <div class="resource-box">
+          <strong>💡 Key Action Item:</strong> Evaluate chunking strategies (256 vs 512 tokens) and retrieval recall accuracy on a sample dataset.
+        </div>
+      </article>
+
+      <!-- Week 5 -->
+      <article class="week-card">
+        <span class="week-badge">WEEK 05</span>
+        <h2 class="week-title">Fine-Tuning vs. RAG &amp; AI Model Evaluations (Evals)</h2>
+        <p style="color:var(--text-muted);">Decide when to use Fine-Tuning vs. RAG, and set up continuous evaluation pipelines (Evals) to measure model quality.</p>
+
+        <ul class="topic-list">
+          <li class="topic-item"><strong>Fine-Tuning:</strong> LoRA, QLoRA, Dataset preparation, Style vs. Knowledge injection.</li>
+          <li class="topic-item"><strong>LLM Evals:</strong> Automated LLM-as-a-Judge, Ground Truth benchmarks, Faithfulness &amp; Relevancy scores.</li>
+          <li class="topic-item"><strong>PM Framework:</strong> Establishing a golden evaluation dataset for regression testing during model upgrades.</li>
+        </ul>
+
+        <div class="resource-box">
+          <strong>💡 Key Action Item:</strong> Build a 50-test-case Evaluation Matrix to benchmark GPT-4o vs Claude 3.5 Sonnet on core product prompts.
+        </div>
+      </article>
+
+      <!-- Week 6 -->
+      <article class="week-card">
+        <span class="week-badge">WEEK 06</span>
+        <h2 class="week-title">Building Agentic Products: UX Patterns, Fallbacks &amp; Safety</h2>
+        <p style="color:var(--text-muted);">Master user experience design for probabilistic AI systems, handling streaming responses, human-in-the-loop, and guardrails.</p>
+
+        <ul class="topic-list">
+          <li class="topic-item"><strong>UX Design:</strong> Streaming text, skeleton loaders, optimistic UI updates, error recovery states.</li>
+          <li class="topic-item"><strong>Safety Guardrails:</strong> NeMo Guardrails, Llama Guard, Content moderation APIs, PII redaction.</li>
+          <li class="topic-item"><strong>Human-in-the-Loop (HITL):</strong> Approval workflows for high-stakes actions (financial transfers, external emails).</li>
+        </ul>
+
+        <div class="resource-box">
+          <strong>💡 Key Action Item:</strong> Design wireframes for an AI assistant showing thought steps, source citations, and human approval buttons.
+        </div>
+      </article>
+
+      <!-- Week 7 -->
+      <article class="week-card">
+        <span class="week-badge">WEEK 07</span>
+        <h2 class="week-title">Capstone Project &amp; AI Product Lifecycle Management</h2>
+        <p style="color:var(--text-muted);">Synthesize everything learned into a complete PRD (Product Requirements Document) for an agentic AI product release.</p>
+
+        <ul class="topic-list">
+          <li class="topic-item"><strong>PRD Creation:</strong> Defining metrics (CSAT, Resolution rate, Cost/query, Fallback rate).</li>
+          <li class="topic-item"><strong>Architecture Specs:</strong> Model choice, RAG pipeline, Tool integrations, Safety layers.</li>
+          <li class="topic-item"><strong>Go-To-Market &amp; Monitoring:</strong> Telemetry, cost alerts, drift detection, and continuous eval loops.</li>
+        </ul>
+
+        <div class="resource-box">
+          <strong>💡 Final Capstone Deliverable:</strong> Full Technical PRD for an Enterprise AI Agent with latency budget, safety rules, and ROI analysis.
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+  <script>
+    // Simple client-side passcode unlock logic
+    // Default passcode is '2026' (or press Enter)
+    const PASSCODE = "2026";
+    const lockOverlay = document.getElementById('lockOverlay');
+    const passInput = document.getElementById('passInput');
+    const unlockBtn = document.getElementById('unlockBtn');
+    const passErr = document.getElementById('passErr');
+
+    // Check if previously unlocked in session
+    if (sessionStorage.getItem('ai_curriculum_unlocked') === 'true') {
+      lockOverlay.classList.add('unlocked');
+    }
+
+    function attemptUnlock() {
+      const val = passInput.value.trim();
+      if (val === PASSCODE || val === "") {
+        sessionStorage.setItem('ai_curriculum_unlocked', 'true');
+        lockOverlay.classList.add('unlocked');
+        passErr.style.display = 'none';
+      } else {
+        passErr.style.display = 'block';
+        passInput.select();
+      }
+    }
+
+    unlockBtn.addEventListener('click', attemptUnlock);
+    passInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') attemptUnlock();
+    });
+  </script>
+</body>
+</html>
