@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learn &amp; AI PM Curriculum | Jainam Shah</title>
+  <meta name="description" content="AI Product Management Learning Path: 7-Week Curriculum, interactive trackers, token cost estimators, and technical PM resources by Jainam Shah." />
+
+  <!-- Inline SVG Favicon -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234f46e5'/%3E%3Ctext x='32' y='43' font-family='Space Grotesk,sans-serif' font-size='28' font-weight='700' fill='%23fff' text-anchor='middle'%3EAI%3C/text%3E%3C/svg%3E" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Portfolio Theme Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    /* --- Learn Page Specific Alignment --- */
+    .app-header {
+      margin-top: 5.5rem;
+      padding: 3.5rem 0 2.5rem;
+      border-bottom: 2px solid var(--border-desk);
+      background: rgba(245, 237, 225, 0.45);
+    }
+
+    body.dark-desk .app-header {
+      background: rgba(35, 39, 59, 0.4);
+    }
+
+    .app-title-badge {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 0.3rem 0.8rem;
+      background: var(--accent-indigo);
+      color: #ffffff;
+      border-radius: 99px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+      border: 1.5px solid var(--border-desk);
+      box-shadow: 2px 2px 0px var(--border-desk);
+    }
+
+    .app-main-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.2rem, 4.8vw, 3.25rem);
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.15;
+      margin-bottom: 0.85rem;
+      letter-spacing: -0.02em;
+    }
+
+    .app-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      max-width: 760px;
+      line-height: 1.65;
+      margin-bottom: 2rem;
+    }
+
+    /* Progress Tracker Card */
+    .progress-card {
+      background: var(--surface-paper);
+      border: 2.5px solid var(--border-desk);
+      border-radius: var(--radius);
+      padding: 1.6rem;
+      box-shadow: 5px 5px 0px var(--border-desk);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .progress-bar-bg {
+      flex: 1;
+      min-width: 220px;
+      height: 16px;
+      background: var(--bg-desk);
+      border: 2px solid var(--border-desk);
+      border-radius: 99px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-amber) 0%, var(--accent-crimson) 50%, var(--accent-indigo) 100%);
+      transition: width 0.4s ease;
+    }
+
+    .progress-text {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    /* Controls & Filters */
+    .controls-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .search-box {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      padding: 0.65rem 1rem;
+      border: 2px solid var(--border-desk);
+      border-radius: 10px;
+      background: var(--surface-paper);
+      color: var(--ink);
+      width: 100%;
+      max-width: 340px;
+      box-shadow: 2px 2px 0px var(--border-desk);
+    }
+
+    .search-box:focus {
+      outline: none;
+      border-color: var(--accent-indigo);
+      box-shadow: 4px 4px 0px var(--border-desk);
+    }
+
+    .filter-pills {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.4rem 0.85rem;
+      border-radius: 8px;
+      border: 2px solid var(--border-desk);
+      background: var(--surface-paper);
+      color: var(--ink);
+      cursor: pointer;
+      box-shadow: 2px 2px 0px var(--border-desk);
+      transition: var(--transition);
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--border-desk);
+      color: #ffffff;
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0px var(--border-desk);
+    }
+
+    /* Curriculum Cards Layout */
+    .curriculum-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .curriculum-card {
+      background: var(--surface-paper);
+      border: 3.5px solid var(--border-desk);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: 6px 6px 0px var(--border-desk);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .curriculum-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 8px 8px 0px var(--border-desk);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .week-num-badge {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: var(--accent-crimson);
+      color: #ffffff;
+      padding: 0.25rem 0.7rem;
+      border-radius: 6px;
+      border: 1.5px solid var(--border-desk);
+      box-shadow: 2px 2px 0px var(--border-desk);
+    }
+
+    .card-title {
+      font-family: var(--font-heading);
+      font-size: 1.45rem;
+      color: var(--ink);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-desc {
+      font-size: 0.975rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Accordion Details Section */
+    .details-toggle {
+      background: var(--bg-desk);
+      border: 2px solid var(--border-desk);
+      padding: 0.65rem 1.1rem;
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--ink);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .details-toggle:hover {
+      background: var(--surface-alt);
+    }
+
+    .card-details {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 2px dashed var(--border-subtle);
+      display: none;
+    }
+
+    .card-details.open {
+      display: block;
+    }
+
+    .detail-section-title {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 1.25rem 0 0.65rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .detail-list {
+      padding-left: 1.2rem;
+      font-size: 0.95rem;
+      color: var(--text-main);
+      line-height: 1.65;
+    }
+
+    .detail-list li {
+      margin-bottom: 0.55rem;
+    }
+
+    .term-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 0.85rem;
+      margin-top: 0.75rem;
+    }
+
+    .term-box {
+      background: var(--bg-desk);
+      border: 1.5px solid var(--border-desk);
+      border-radius: 8px;
+      padding: 0.85rem;
+      font-size: 0.875rem;
+    }
+
+    .term-name {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--accent-indigo);
+      margin-bottom: 0.25rem;
+    }
+
+    /* Checkbox Mark Completed */
+    .complete-checkbox-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--ink);
+      cursor: pointer;
+      user-select: none;
+      padding: 0.5rem 0.9rem;
+      background: var(--surface-paper);
+      border: 2px solid var(--border-desk);
+      border-radius: 8px;
+      box-shadow: 2px 2px 0px var(--border-desk);
+    }
+
+    .complete-checkbox-label input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent-emerald);
+      cursor: pointer;
+    }
+
+    /* Interactive PM Estimator Tool Card */
+    .tool-widget-card {
+      background: #1e293b;
+      color: #38bdf8;
+      border: 3.5px solid var(--border-desk);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      box-shadow: 7px 7px 0px var(--border-desk);
+      margin: 3.5rem 0;
+      font-family: var(--font-mono);
+    }
+
+    .tool-widget-title {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      color: #f8fafc;
+      margin-bottom: 0.5rem;
+    }
+
+    .calc-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.25rem;
+      margin: 1.5rem 0;
+    }
+
+    .calc-field label {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--accent-amber);
+      margin-bottom: 0.4rem;
+    }
+
+    .calc-field input, .calc-field select {
+      width: 100%;
+      padding: 0.6rem 0.8rem;
+      font-family: var(--font-mono);
+      background: #0f172a;
+      border: 1.5px solid #334155;
+      color: #38bdf8;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+
+    .calc-result-box {
+      background: #0f172a;
+      border: 2px solid var(--accent-teal);
+      border-radius: 10px;
+      padding: 1.25rem;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .res-val {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: #10b981;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Site Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand-group">
+        <a href="index.html" class="brand-logo">
+          JAINAM SHAH <span class="brand-badge">Full Stack</span>
+        </a>
+
+        <!-- Retro Live Digital Clock -->
+        <button class="retro-timer" id="retroClock" title="Switch to 24h format" aria-label="Live retro clock">
+          <span class="rt-card">--</span>
+          <span class="rt-colon">:</span>
+          <span class="rt-card">--</span>
+          <span class="rt-colon">:</span>
+          <span class="rt-card">--</span>
+        </button>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="main-nav">
+        <a href="index.html#experience">Experience</a>
+        <a href="index.html#apps">Apps Built</a>
+        <a href="index.html#skills">Skills</a>
+        <a href="learn.html" class="active">Learn Hub</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+
+      <!-- Right Header Actions (Lamp & Theme Switches) -->
+      <div class="header-actions">
+        <!-- Prominent Desk Ambient Light Toggle Button -->
+        <button class="lamp-toggle-btn" id="lampHeaderSwitch" aria-label="Toggle ambient warm light">
+          💡 Warm Light
+        </button>
+
+        <!-- Theme Toggle Button -->
+        <button class="desk-theme-toggle" id="themeToggle" aria-label="Toggle dark desk mode">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- App Header Banner -->
+  <section class="app-header">
+    <div class="container">
+      <span class="app-title-badge">📚 LEARNING HUB &amp; AI PM PATHWAY</span>
+      <h1 class="app-main-title">AI Product Management Learning Curriculum</h1>
+      <p class="app-subtitle">
+        A comprehensive 7-week curriculum, progress tracker, and interactive estimator tool designed to master AI Agents, LLM Architecture, RAG, System Prompts, and Agentic Product Development.
+      </p>
+
+      <!-- Overall Progress Card -->
+      <div class="progress-card">
+        <div>
+          <div style="font-family:var(--font-heading); font-weight:700; font-size:1.1rem; color:var(--ink);">Curriculum Completion</div>
+          <div style="font-size:0.85rem; color:var(--text-muted);" id="progressSub">0 of 7 Modules Completed</div>
+        </div>
+
+        <div class="progress-bar-bg">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="progress-text" id="progressPercent">0% COMPLETE</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Curriculum Content -->
+  <main class="container" style="padding: 3rem 1.5rem 5rem;">
+
+    <!-- Controls Row (Search & Filter Pills) -->
+    <div class="controls-row">
+      <input type="text" class="search-box" id="searchBox" placeholder="🔍 Search topics, terms, RAG, agents..." />
+
+      <div class="filter-pills" id="filterContainer">
+        <button class="filter-btn active" data-filter="all">All Modules</button>
+        <button class="filter-btn" data-filter="llm">LLMs &amp; Architecture</button>
+        <button class="filter-btn" data-filter="agents">AI Agents</button>
+        <button class="filter-btn" data-filter="rag">RAG &amp; Vector DBs</button>
+        <button class="filter-btn" data-filter="evals">Model Evals</button>
+        <button class="filter-btn" data-filter="capstone">Capstone PRD</button>
+      </div>
+    </div>
+
+    <!-- Curriculum Modules Container -->
+    <div class="curriculum-grid" id="curriculumGrid">
+
+      <!-- Week 1 -->
+      <article class="curriculum-card" data-category="llm">
+        <div class="card-top">
+          <div>
+            <span class="week-num-badge">WEEK 01</span>
+            <h2 class="card-title">AI Fundamentals &amp; LLM Architecture for PMs</h2>
+          </div>
+          <label class="complete-checkbox-label">
+            <input type="checkbox" class="week-check" data-week="1" /> Mark Done
+          </label>
+        </div>
+        <p class="card-desc">
+          Understand how Transformer neural networks work under the hood, tokenization mechanisms, context windows, and cost vs. latency trade-offs for product features.
+        </p>
+
+        <button class="details-toggle">&plus; View Syllabus &amp; Key Terminology</button>
+
+        <div class="card-details">
+          <div class="detail-section-title">🎯 Core Learning Objectives</div>
+          <ul class="detail-list">
+            <li>Understand the Transformer architecture: Self-attention mechanism, input embeddings, and next-token prediction loops.</li>
+            <li>Master tokenization math (1 token &asymp; 0.75 words / 4 characters in English).</li>
+            <li>Evaluate Time-to-First-Token (TTFT) and throughput (tokens/sec) budget for user-facing features.</li>
+            <li>Calculate API costs for input vs. output tokens across GPT-4o, Claude 3.5 Sonnet, and Llama 3.</li>
+          </ul>
+
+          <div class="detail-section-title">📖 Key Terminology</div>
+          <div class="term-grid">
+            <div class="term-box">
+              <div class="term-name">TTFT (Time To First Token)</div>
+              <div>Duration from user query submission to the first streamed character response. Target &lt;800ms.</div>
+            </div>
+            <div class="term-box">
+              <div class="term-name">Context Window</div>
+              <div>Maximum combined limit of input prompt + output tokens model can process in one turn.</div>
+            </div>
+            <div class="term-box">
+              <div class="term-name">Temperature &amp; Top-P</div>
+              <div>Hyperparameters controlling randomness/creativity vs. deterministic response output.</div>
+            </div>
+          </div>
+
+          <div class="detail-section-title">🛠️ Hands-On PM Deliverable</div>
+          <div class="detail-list">
+            Create a Latency &amp; Cost Estimation Budget sheet for a feature expecting 50,000 daily active queries.
+          </div>
+        </div>
+      </article>
+
+      <!-- Week 2 -->
+      <article class="curriculum-card" data-category="llm">
+        <div class="card-top">
+          <div>
+            <span class="week-num-badge">WEEK 02</span>
+            <h2 class="card-title">Prompt Engineering, System Prompts &amp; Context Management</h2>
+          </div>
+          <label class="complete-checkbox-label">
+            <input type="checkbox" class="week-check" data-week="2" /> Mark Done
+          </label>
+        </div>
+        <p class="card-desc">
+          Master zero-shot, few-shot prompting, system instruction design, structured JSON output schemas, and security against prompt injection.
+        </p>
+
+        <button class="details-toggle">&plus; View Syllabus &amp; Key Terminology</button>
+
+        <div class="card-details">
+          <div class="detail-section-title">🎯 Core Learning Objectives</div>
+          <ul class="detail-list">
+            <li>Write production-grade System Prompts specifying persona, task boundaries, tone, and fallbacks.</li>
+            <li>Implement Chain-of-Thought (CoT) prompting to improve reasoning on complex multi-step tasks.</li>
+            <li>Enforce structured JSON output formatting with Pydantic or JSON Mode for API integration.</li>
+            <li>Identify and mitigate Indirect Prompt Injection and jailbreaking vulnerabilities.</li>
+          </ul>
+
+          <div class="detail-section-title">📖 Key Terminology</div>
+          <div class="term-grid">
+            <div class="term-box">
+              <div class="term-name">Few-Shot Prompting</div>
+              <div>Providing 2-5 input/output examples within the prompt to guide output structure and style.</div>
+            </div>
+            <div class="term-box">
+              <div class="term-name">Prompt Injection</div>
+              <div>Security exploit where untrusted user input overrides developer system instructions.</div>
+            </div>
+          </div>
+
+          <div class="detail-section-title">🛠️ Hands-On PM Deliverable</div>
+          <div class="detail-list">
+            Draft a production-ready System Prompt for a Customer Support Classifier with JSON output schema.
+          </div>
+        </div>
+      </article>
+
+      <!-- Week 3 -->
+      <article class="curriculum-card" data-category="agents">
+        <div class="card-top">
+          <div>
+            <span class="week-num-badge">WEEK 03</span>
+            <h2 class="card-title">AI Agents &amp; Agentic Workflows (ReAct, Tools &amp; Planning)</h2>
+          </div>
+          <label class="complete-checkbox-label">
+            <input type="checkbox" class="week-check" data-week="3" /> Mark Done
+          </label>
+        </div>
+        <p class="card-desc">
+          Explore autonomous agents, the Reason + Act (ReAct) execution loop, tool-calling APIs, multi-agent orchestrations, and long-term memory.
+        </p>
+
+        <button class="details-toggle">&plus; View Syllabus &amp; Key Terminology</button>
+
+        <div class="card-details">
+          <div class="detail-section-title">🎯 Core Learning Objectives</div>
+          <ul class="detail-list">
+            <li>Understand the 4 core components of an Agent: Perception, Planning, Memory, and Tool Execution.</li>
+            <li>Implement the ReAct loop: Thought &rarr; Action &rarr; Observation &rarr; Final Answer.</li>
+            <li>Design Function Calling schemas (OpenAI / Anthropic tool-use definitions).</li>
+            <li>Architect Multi-Agent patterns: Supervisor-Worker, Router, and Evaluator-Optimizer loops.</li>
+          </ul>
+
+          <div class="detail-section-title">📖 Key Terminology</div>
+          <div class="term-grid">
+            <div class="term-box">
+              <div class="term-name">ReAct Pattern</div>
+              <div>Reasoning + Acting execution cycle allowing LLMs to query external APIs dynamically.</div>
+            </div>
+            <div class="term-box">
+              <div class="term-name">Tool Calling</div>
+              <div>Capability of an LLM to output formatted parameters to execute backend APIs or database queries.</div>
+            </div>
+          </div>
+
+          <div class="detail-section-title">🛠️ Hands-On PM Deliverable</div>
+          <div class="detail-list">
+            Design an Agentic Workflow Diagram for an automated Travel Booking Assistant with fallback retry rules.
+          </div>
+        </div>
+      </article>
+
+      <!-- Week 4 -->
+      <article class="curriculum-card" data-category="rag">
+        <div class="card-top">
+          <div>
+            <span class="week-num-badge">WEEK 04</span>
+            <h2 class="card-title">RAG (Retrieval-Augmented Generation) &amp; Vector Databases</h2>
+          </div>
+          <label class="complete-checkbox-label">
+            <input type="checkbox" class="week-check" data-week="4" /> Mark Done
+          </label>
+        </div>
+        <p class="card-desc">
+          Ground AI models with company knowledge bases, document chunking strategies, vector embeddings, semantic search, and hybrid retrieval.
+        </p>
+
+        <button class="details-toggle">&plus; View Syllabus &amp; Key Terminology</button>
+
+        <div class="card-details">
+          <div class="detail-section-title">🎯 Core Learning Objectives</div>
+          <ul class="detail-list">
+            <li>End-to-End RAG Pipeline: Ingestion &rarr; Parsing &rarr; Chunking &rarr; Embedding &rarr; Indexing &rarr; Retrieval.</li>
+            <li>Evaluate Chunking Strategies: Fixed-size vs. Sentence-based vs. Parent-Document chunking.</li>
+            <li>Vector DB Architecture: Pinecone, Qdrant, Milvus, and PGVector similarity scoring (Cosine / Dot Product).</li>
+            <li>Advanced RAG: Hybrid Search (BM25 + Dense Vectors) and Cohere Reranking.</li>
+          </ul>
+
+          <div class="detail-section-title">📖 Key Terminology</div>
+          <div class="term-grid">
+            <div class="term-box">
+              <div class="term-name">Embeddings</div>
+              <div>Dense numerical vector representations of text capturing semantic meaning in multi-dimensional space.</div>
+            </div>
+            <div class="term-box">
+              <div class="term-name">Cosine Similarity</div>
+              <div>Mathematical distance metric used to find the most relevant document chunks for a query.</div>
+            </div>
+          </div>
+
+          <div class="detail-section-title">🛠️ Hands-On PM Deliverable</div>
+          <div class="detail-list">
+            Define RAG Data Governance &amp; Chunking Specs for a company Knowledge Base Search tool.
+          </div>
+        </div>
+      </article>
+
+      <!-- Week 5 -->
+      <article class="curriculum-card" data-category="evals">
+        <div class="card-top">
+          <div>
+            <span class="week-num-badge">WEEK 05</span>
+            <h2 class="card-title">Fine-Tuning vs. RAG &amp; AI Model Evaluations (Evals)</h2>
+          </div>
+          <label class="complete-checkbox-label">
+            <input type="checkbox" class="week-check" data-week="5" /> Mark Done
+          </label>
+        </div>
+        <p class="card-desc">
+          Choose when to use Fine-Tuning vs. RAG, and set up continuous evaluation pipelines (Evals) to measure response accuracy and prevent regressions.
+        </p>
+
+        <button class="details-toggle">&plus; View Syllabus &amp; Key Terminology</button>
+
+        <div class="card-details">
+          <div class="detail-section-title">🎯 Core Learning Objectives</div>
+          <ul class="detail-list">
+            <li>Decision Framework: When to Fine-Tune (Tone/Style/Domain format) vs. RAG (Dynamic Knowledge/Facts).</li>
+            <li>Building Evals: Creating a Golden Test Dataset (50-200 ground truth test cases).</li>
+            <li>LLM-as-a-Judge: Automated evaluation scoring using Claude/GPT-4 for Faithfulness, Relevance, and Toxicity.</li>
+            <li>Regression Prevention: CI/CD integration for model prompt updates.</li>
+          </ul>
+
+          <div class="detail-section-title">📖 Key Terminology</div>
+          <div class="term-grid">
+            <div class="term-box">
+              <div class="term-name">LLM-as-a-Judge</div>
+              <div>Using a stronger LLM (e.g. GPT-4o) to grade candidate model responses on accuracy criteria.</div>
+            </div>
+            <div class="term-box">
+              <div class="term-name">LoRA (Low-Rank Adaptation)</div>
+              <div>Efficient fine-tuning technique that freezes base weights and trains lightweight rank matrices.</div>
+            </div>
+          </div>
+
+          <div class="detail-section-title">🛠️ Hands-On PM Deliverable</div>
+          <div class="detail-list">
+            Build a 30-Prompt Model Benchmark Evaluation Suite with scoring criteria for accuracy &amp; hallucination rates.
+          </div>
+        </div>
+      </article>
+
+      <!-- Week 6 -->
+      <article class="curriculum-card" data-category="agents">
+        <div class="card-top">
+          <div>
+            <span class="week-num-badge">WEEK 06</span>
+            <h2 class="card-title">Building Agentic Products: UX Patterns, Fallbacks &amp; Safety</h2>
+          </div>
+          <label class="complete-checkbox-label">
+            <input type="checkbox" class="week-check" data-week="6" /> Mark Done
+          </label>
+        </div>
+        <p class="card-desc">
+          Master user experience design for probabilistic AI features, handling streaming responses, human-in-the-loop approvals, and guardrails.
+        </p>
+
+        <button class="details-toggle">&plus; View Syllabus &amp; Key Terminology</button>
+
+        <div class="card-details">
+          <div class="detail-section-title">🎯 Core Learning Objectives</div>
+          <ul class="detail-list">
+            <li>AI UX Patterns: Streaming text, thought visibility, source attribution, and inline editing.</li>
+            <li>Safety Guardrails: Implementing NeMo Guardrails, Llama Guard, and PII anonymization layers.</li>
+            <li>Human-in-the-Loop (HITL): Approval gates for high-risk actions (sending emails, making payments).</li>
+            <li>Graceful Fallbacks: Degrading gracefully when latency spikes or model rate limits occur.</li>
+          </ul>
+
+          <div class="detail-section-title">📖 Key Terminology</div>
+          <div class="term-grid">
+            <div class="term-box">
+              <div class="term-name">Human-in-the-Loop (HITL)</div>
+              <div>UX pattern requiring explicit human verification before an agent executes critical actions.</div>
+            </div>
+            <div class="term-box">
+              <div class="term-name">PII Anonymization</div>
+              <div>Stripping Personally Identifiable Information before sending user data to third-party LLMs.</div>
+            </div>
+          </div>
+
+          <div class="detail-section-title">🛠️ Hands-On PM Deliverable</div>
+          <div class="detail-list">
+            Design Wireframes &amp; Error Recovery Flows for an Agentic Email Writer with Human Approval steps.
+          </div>
+        </div>
+      </article>
+
+      <!-- Week 7 -->
+      <article class="curriculum-card" data-category="capstone">
+        <div class="card-top">
+          <div>
+            <span class="week-num-badge">WEEK 07</span>
+            <h2 class="card-title">Capstone Project &amp; AI Product Lifecycle Management</h2>
+          </div>
+          <label class="complete-checkbox-label">
+            <input type="checkbox" class="week-check" data-week="7" /> Mark Done
+          </label>
+        </div>
+        <p class="card-desc">
+          Synthesize everything learned into a complete PRD (Product Requirements Document) for an Enterprise Agentic AI product.
+        </p>
+
+        <button class="details-toggle">&plus; View Syllabus &amp; Key Terminology</button>
+
+        <div class="card-details">
+          <div class="detail-section-title">🎯 Core Learning Objectives</div>
+          <ul class="detail-list">
+            <li>AI Product PRD: Problem definition, target persona, agent architecture, metrics, and risk assessment.</li>
+            <li>Key Metrics: CSAT, Resolution Rate, Cost per User, Fallback Rate, and Model Drift.</li>
+            <li>GTM &amp; Monitoring: Setting up telemetry dashboards (LangSmith, Helicone, Datadog LLM).</li>
+            <li>Continuous Lifecycle: Iterative prompt updates, model fine-tuning cycles, and user feedback loops.</li>
+          </ul>
+
+          <div class="detail-section-title">📖 Key Terminology</div>
+          <div class="term-grid">
+            <div class="term-box">
+              <div class="term-name">Model Drift</div>
+              <div>Degradation in model response performance over time due to changing real-world data distribution.</div>
+            </div>
+            <div class="term-box">
+              <div class="term-name">LLM Telemetry</div>
+              <div>Monitoring tool tracking token usage, latency distribution, cost per user, and error rates.</div>
+            </div>
+          </div>
+
+          <div class="detail-section-title">🛠️ Final Capstone Deliverable</div>
+          <div class="detail-list">
+            Publish a complete Technical PRD for an Enterprise AI Agent with latency budget, safety rules, and ROI analysis.
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Interactive PM Token Cost & Latency Estimator Widget -->
+    <div class="tool-widget-card">
+      <h3 class="tool-widget-title">⚡ Interactive PM Tool: Token Cost &amp; Latency Estimator</h3>
+      <p style="font-size:0.875rem; color:#94a3b8; margin-bottom:1rem;">
+        Estimate monthly API cost and latency budgets for your product features.
+      </p>
+
+      <div class="calc-row">
+        <div class="calc-field">
+          <label>Selected LLM Model</label>
+          <select id="calcModel">
+            <option value="gpt4o">OpenAI GPT-4o ($2.50 / $10.00 per 1M)</option>
+            <option value="sonnet" selected>Claude 3.5 Sonnet ($3.00 / $15.00 per 1M)</option>
+            <option value="haiku">Claude 3.5 Haiku ($1.00 / $5.00 per 1M)</option>
+            <option value="mini">GPT-4o mini ($0.15 / $0.60 per 1M)</option>
+          </select>
+        </div>
+
+        <div class="calc-field">
+          <label>Daily Queries</label>
+          <input type="number" id="calcQueries" value="10000" step="1000" />
+        </div>
+
+        <div class="calc-field">
+          <label>Avg Input Tokens / Query</label>
+          <input type="number" id="calcInputTokens" value="800" step="100" />
+        </div>
+
+        <div class="calc-field">
+          <label>Avg Output Tokens / Query</label>
+          <input type="number" id="calcOutputTokens" value="300" step="50" />
+        </div>
+      </div>
+
+      <div class="calc-result-box">
+        <div>
+          <div style="font-size:0.8rem; color:#94a3b8;">Est. Monthly API Cost</div>
+          <div class="res-val" id="resCost">$0.00</div>
+        </div>
+
+        <div>
+          <div style="font-size:0.8rem; color:#94a3b8;">Est. Monthly Token Volume</div>
+          <div class="res-val" id="resTokens" style="color:#38bdf8;">0M</div>
+        </div>
+
+        <div>
+          <div style="font-size:0.8rem; color:#94a3b8;">Target Latency (TTFT)</div>
+          <div class="res-val" id="resLatency" style="color:#f59e0b;">&lt; 650 ms</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="mono">&copy; 2026 Jainam Shah &bull; AI Product Management Learning Hub</p>
+      <p class="mono"><a href="index.html">&larr; Return to Developer Desk</a></p>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript Logic -->
+  <script src="js/main.js"></script>
+  <script>
+    // --- Curriculum Application Interactive Script ---
+    document.addEventListener('DOMContentLoaded', () => {
+      initAccordionToggles();
+      initProgressTracker();
+      initSearchAndFilter();
+      initCostCalculator();
+    });
+
+    // Accordion expand/collapse for syllabus details
+    function initAccordionToggles() {
+      const toggles = document.querySelectorAll('.details-toggle');
+      toggles.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const details = btn.nextElementSibling;
+          const isOpen = details.classList.toggle('open');
+          btn.innerHTML = isOpen ? '&minus; Hide Details' : '&plus; View Syllabus &amp; Key Terminology';
+        });
+      });
+    }
+
+    // Checkbox Completion Progress Tracker with LocalStorage persistence
+    function initProgressTracker() {
+      const checkboxes = document.querySelectorAll('.week-check');
+      const progressFill = document.getElementById('progressFill');
+      const progressPercent = document.getElementById('progressPercent');
+      const progressSub = document.getElementById('progressSub');
+
+      const savedState = JSON.parse(localStorage.getItem('ai_curriculum_progress') || '{}');
+
+      checkboxes.forEach(cb => {
+        const week = cb.getAttribute('data-week');
+        if (savedState[week]) {
+          cb.checked = true;
+        }
+
+        cb.addEventListener('change', () => {
+          savedState[week] = cb.checked;
+          localStorage.setItem('ai_curriculum_progress', JSON.stringify(savedState));
+          updateProgress();
+        });
+      });
+
+      function updateProgress() {
+        const total = checkboxes.length;
+        const completed = Array.from(checkboxes).filter(cb => cb.checked).length;
+        const pct = Math.round((completed / total) * 100);
+
+        if (progressFill) progressFill.style.width = pct + '%';
+        if (progressPercent) progressPercent.textContent = pct + '% COMPLETE';
+        if (progressSub) progressSub.textContent = `${completed} of ${total} Modules Completed`;
+      }
+
+      updateProgress();
+    }
+
+    // Live Search and Category Filter Pills
+    function initSearchAndFilter() {
+      const searchBox = document.getElementById('searchBox');
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const cards = document.querySelectorAll('.curriculum-card');
+
+      let currentFilter = 'all';
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentFilter = btn.getAttribute('data-filter');
+          applyFilters();
+        });
+      });
+
+      if (searchBox) {
+        searchBox.addEventListener('input', applyFilters);
+      }
+
+      function applyFilters() {
+        const query = searchBox ? searchBox.value.toLowerCase().trim() : '';
+
+        cards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          const text = card.textContent.toLowerCase();
+
+          const matchesCategory = (currentFilter === 'all' || category === currentFilter);
+          const matchesSearch = (!query || text.includes(query));
+
+          if (matchesCategory && matchesSearch) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      }
+    }
+
+    // Token Cost & Latency Estimator Math
+    function initCostCalculator() {
+      const modelSelect = document.getElementById('calcModel');
+      const queriesInput = document.getElementById('calcQueries');
+      const inputTokensInput = document.getElementById('calcInputTokens');
+      const outputTokensInput = document.getElementById('calcOutputTokens');
+
+      const resCost = document.getElementById('resCost');
+      const resTokens = document.getElementById('resTokens');
+
+      const PRICING = {
+        gpt4o: { in: 2.50, out: 10.00 },
+        sonnet: { in: 3.00, out: 15.00 },
+        haiku: { in: 1.00, out: 5.00 },
+        mini: { in: 0.15, out: 0.60 }
+      };
+
+      function calculate() {
+        const model = modelSelect.value;
+        const queries = parseFloat(queriesInput.value) || 0;
+        const inTokens = parseFloat(inputTokensInput.value) || 0;
+        const outTokens = parseFloat(outputTokensInput.value) || 0;
+
+        const monthlyQueries = queries * 30;
+        const monthlyInM = (monthlyQueries * inTokens) / 1000000;
+        const monthlyOutM = (monthlyQueries * outTokens) / 1000000;
+        const totalM = monthlyInM + monthlyOutM;
+
+        const rate = PRICING[model] || PRICING.sonnet;
+        const cost = (monthlyInM * rate.in) + (monthlyOutM * rate.out);
+
+        if (resCost) resCost.textContent = '$' + cost.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        if (resTokens) resTokens.textContent = totalM.toFixed(1) + 'M';
+      }
+
+      [modelSelect, queriesInput, inputTokensInput, outputTokensInput].forEach(el => {
+        if (el) el.addEventListener('input', calculate);
+      });
+
+      calculate();
+    }
+  </script>
+</body>
+</html>
